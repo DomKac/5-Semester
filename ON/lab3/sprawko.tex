@@ -1,0 +1,133 @@
+\documentclass[a4paper]{article}
+
+\usepackage[shortlabels]{enumitem}
+\usepackage{fancyhdr}
+\usepackage[utf8]{inputenc}
+\usepackage[MeX]{polski}
+\usepackage{longtable} 
+\usepackage{algpseudocode,algorithm,algorithmicx}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{lipsum}
+\usepackage{url}
+\usepackage{latexsym,amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{abstract}
+\usepackage{amsmath}
+\usepackage{changepage}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+\title{Obliczenia naukowe\\Lista 3}
+\author{Dominik Kaczmarek, nr albumu 261757}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Zadanie 1}
+    \subsection{Opis problemu}
+    Napisać funkcję rozwiązującą równanie $f(x) = 0$ metodą bisekcji. \\\\
+    \texttt{function mbisekcji(f, a::Float64, b::Float64, delta::Float64, epsilon::Float64)}
+    \\\\
+    \textbf{Dane:}\\
+    \texttt{f} – funkcja f(x) zadana jako anonimowa funkcja (ang. anonymous function), \\
+    \texttt{a,b} – końce przedziału początkowego, \\
+    \texttt{delta,epsilon} – dokładności obliczeń, \\\\
+    \textbf{Wyniki:}\\
+    \texttt{(r,v,it,err)} – czwórka, gdzie \\
+    \tab \texttt{r} – przybliżenie pierwiastka równania $f(x) = 0$, \\
+    \tab \texttt{v} – wartość $f(r)$, \\
+    \tab \texttt{it} – liczba wykonanych iteracji, \\
+    \tab \texttt{err} – sygnalizacja błędu\\
+    \tab \tab 0 - brak błędu\\
+    \tab \tab 1 - funkcja nie zmienia znaku w przedziale [a,b]\\
+    
+    \subsection{Rozwiązanie}
+    Aby metoda bisekcji działała poprawnie, przedział początkowy \texttt{[a,b]} musi spełniać warunki:
+    \begin{itemize}
+        \item w \texttt{[a,b]} znajduje się dokładnie jedno miejsce zerowe $\equiv f(a) \cdot f(b) < 0$
+        \item funkcja \texttt{f} jest ciągła w \texttt{[a,b]}
+    \end{itemize}
+    \textbf{Lista kroków :}
+    \begin{enumerate}[I]
+        \item Obliczamy długość przedziału \texttt{e = b - a} oraz środek aktualnego przedziału \texttt{r = (a + e/2)}
+        \item Jeżeli \texttt{r} różni się od rzeczywistego miejsca zerowego co najwyżej o \texttt{delta}  $ \equiv $ \texttt{e} $<$ \texttt{delta} \\
+              lub wartość \texttt{f(r)} rózni się od \texttt{0} najwyżej o \texttt{epislon} $\equiv$ \texttt{f(r)} $ < $ \texttt{epsilon}, \\
+              to kończymy obliczenia i zwracamy wynik \texttt{(r,v,it,0)}, w przeciwnym wypadku przechodzimy do punktu \texttt{(III)}
+        \item Patrzymy, czy \texttt{f(r) i f(a)} mają rózne znaki $\equiv$ \texttt{f(r) * f(a) < 0}:
+            \begin{itemize}
+                \item Jeżeli \textbf{tak} to w przedziale \texttt{[a,r]} znajduje się miejsce zerowe, dlatego zmniejszamy obszar poszukiwań podstawiając \texttt{b = r}.
+                \item Jeżeli \textbf{nie} to miesjce zerowe znajduje się w przedziale \texttt{[r,b]}, dlatego zmniejszamy obszar poszukiwań podstawiając \texttt{a = r}.
+            \end{itemize}
+            Przechodzimy do punktu \texttt{(I)}\\
+    \end{enumerate}
+    Dokładny algorytm znajduje się w pliku \texttt{functions.jl}.  
+
+\section{Zadanie 2}
+    \subsection{Opis problemu}
+    Napisać funkcję rozwiązującą równanie $f(x) = 0$ metodą Newtona. \\
+    \texttt{function mstycznych(f,pf,x0::Float64, delta::Float64, epsilon::Float64, maxit::Int)}
+    \\\\
+    \textbf{Dane:}\\
+    \texttt{f, pf} – funkcją $f(x)$ oraz pochodną $f'(x)$ zadane jako anonimowe funkcje, \\
+    \texttt{x0} – przybliżenie początkowe, \\
+    \texttt{delta,epsilon} – dokładności obliczeń, \\
+    \texttt{maxit} – maksymalna dopuszczalna liczba iteracji, \\\\
+    \textbf{Wyniki:}\\
+    \texttt{(r,v,it,err)} – czwórka, gdzie \\
+    \tab \texttt{r} – przybliżenie pierwiastka równania $f(x) = 0$, \\
+    \tab \texttt{v} – wartość $f(r)$, \\
+    \tab \texttt{it} – liczba wykonanych iteracji, \\
+    \tab \texttt{err} – sygnalizacja błędu\\
+    \tab \tab 0 - metoda zbieżna \\
+    \tab \tab 1 - nie osiągnięto wymaganej dokładności w \texttt{maxit} iteracji, \\
+    \tab \tab 2 - pochodna bliska zeru \\
+    
+    \subsection{Rozwiązanie}
+
+\section{Zadanie 3}
+    \subsection{Opis problemu}
+    Napisać funkcję rozwiązującą równanie $f(x) = 0$ metodą siecznych. \\
+    \texttt{function msiecznych(f, x0::Float64, x1::Float64, delta::Float64, epsilon::Float64, maxit::Int)}
+    \\\\
+    \textbf{Dane:}\\
+    \texttt{f} – funkcja f(x) zadana jako anonimowa funkcja (ang. anonymous function), \\
+    \texttt{x0,x1} – przybliżenia początkowe, \\
+    \texttt{delta,epsilon} – dokładności obliczeń, \\
+    \texttt{maxit} – maksymalna dopuszczalna liczba iteracji, \\\\
+    \textbf{Wyniki:}\\
+    \texttt{(r,v,it,err)} – czwórka, gdzie \\
+    \tab \texttt{r} – przybliżenie pierwiastka równania $f(x) = 0$, \\
+    \tab \texttt{v} – wartość $f(r)$, \\
+    \tab \texttt{it} – liczba wykonanych iteracji, \\
+    \tab \texttt{err} – sygnalizacja błędu\\
+    \tab \tab 0 - metoda zbieżna \\
+    \tab \tab 1 - nie osiągnięto wymaganej dokładności w \texttt{maxit} iteracji, \\
+    
+    \subsection{Rozwiązanie}
+    
+\section{Zadanie 4}
+    \subsection{Opis problemu}
+    \subsection{Rozwiązanie}
+    \subsection{Wyniki i interpretacja}
+    \subsection{Wnioski}
+\section{Zadanie 5}
+    \subsection{Opis problemu}
+    \subsection{Rozwiązanie}
+    \subsection{Wyniki i interpretacja}
+    \subsection{Wnioski}
+\section{Zadanie 6}
+    \subsection{Opis problemu}
+    \subsection{Rozwiązanie}
+    \subsection{Wyniki i interpretacja}
+    \subsection{Wnioski}
+\end{document}
+
+
+\neq 
+\approx \appr\to \leftarrow

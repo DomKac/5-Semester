@@ -1,0 +1,23 @@
+    \begin{bmatrix}
+    b^k_{1 1} & \dots & b^k_{1, l-2} & b^k_{1,l-1}   & b^k_{1,l}  \\
+    {0}     & \dots & {0} & {0}   &  b^k_{2,l}                        \\
+    \vdots  &       & \vdots    &\vdots   & \vdots                      \\
+    {0}     & \dots  & {0} & {0}   &  b^k_{l,l}          \\
+    \end{bmatrix}
+    \]
+\times \neq
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{l | l | l}
+    $n$         & Gauss \textbf{bez} pivota & Gauss \textbf{z} pivotem \\ \hline
+    $16$        & 1.4668500038754537e-15    & 3.3766115072321297e-16 \\
+    $10 000$    & 2.6979457399889902e-14 &  4.952490752895815e-16 \\
+    $50 000$    & 5.983696068447593e-14 & 5.378168315102863e-16 \\
+    $100 000$   & 7.42222985137446e-13 & 5.199630892522782e-16 \\
+    $300 000$   & 6.521306370065582e-14 & 4.554950254748486e-16  \\
+    $500 000$   & 8.329169633245344e-14 & 4.507270850385053e-16 \\ \hline
+
+    \end{tabular}
+    \caption{\label{table:1}Wyniki metody Gaussa bez wyboru elementu głównego i z wyborem elementu głównego dla $n = 16, 10 000, 50 000, 100 000, 300 000, 500 000$}
+    \end{table}
